@@ -1,37 +1,25 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import {
   ArrowRight,
-  ChevronRight,
   X,
   CheckCircle2,
   ArrowUpRight,
   Store,
   Truck,
-  BarChart3,
-  Globe,
   Zap,
   Users,
   ShieldCheck,
   Building2,
-  ExternalLink,
   Layers,
   Search,
   Smartphone,
-  ClipboardCheck,
   ShoppingBag,
   Palette,
-  MapPin,
-  CreditCard,
   Target,
-  BadgeCheck,
-  PackageCheck,
-  Clock
 } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-
-/**
- * ARK Assured - Premier Infrastructure for Construction & Interiors
- */
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; direction?: 'up' | 'down' | 'left' | 'right'; scale?: number }> = ({ children, delay = 0, direction = 'up', scale = 1 }) => {
   const directions = {
@@ -133,7 +121,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'partner' | 
   );
 };
 
-export default function App() {
+export default function LandingPage() {
   const [modalType, setModalType] = useState<'partner' | 'access'>('access');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [workflowTab, setWorkflowTab] = useState<'b2b' | 'b2c'>('b2b');
@@ -186,14 +174,12 @@ export default function App() {
     <div className="bg-[#061226] text-white selection:bg-[#D4AF37] selection:text-[#061226]">
       <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-metallic-gold z-[110] origin-left" style={{ scaleX: scaleProgress }} />
 
-      {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-12 flex justify-between items-center transition-all duration-500 ${scrolled ? 'bg-[#061226]/95 backdrop-blur-lg py-3 sm:py-4 border-b border-white/10' : 'bg-transparent py-6 sm:py-8'}`}>
         <div className="flex items-center gap-2 sm:gap-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <LogoSeal size={32} className="sm:w-9 sm:h-9 md:w-[38px] md:h-[38px]" />
           <span className="serif text-base sm:text-xl md:text-2xl tracking-widest uppercase font-light">ARK <span className="text-metallic-gold font-bold">ASSURED</span></span>
         </div>
 
-        {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-12">
           {navLinks.map((link) => (
             <a key={link.id} href={`#${link.id}`} onClick={(e) => handleGlide(e, link.id)} className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 hover:text-[#D4AF37] font-black transition-all">
@@ -205,7 +191,6 @@ export default function App() {
           </button>
         </div>
 
-        {/* Mobile - Show GET ACCESS button */}
         <div className="flex lg:hidden items-center">
           <button
             onClick={() => openModal('access')}
@@ -216,12 +201,10 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="relative min-h-screen flex items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-20 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tr from-[#061226] via-[#061226]/80 to-transparent" />
 
         <div className="max-w-7xl relative z-10 w-full mx-auto">
-          {/* Decorative Gold Bar Pillar */}
           <motion.div
             initial={{ height: 0 }}
             animate={{ height: "100%" }}
@@ -256,7 +239,7 @@ export default function App() {
 
           <FadeIn delay={0.7}>
             <p className="text-neutral-400 text-base sm:text-xl md:text-2xl lg:text-3xl font-light max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-16 leading-relaxed text-center">
-              India's trusted one stop platform for genuine, high-quality building materials and interior materials
+              India&apos;s trusted one stop platform for genuine, high-quality building materials and interior materials
               <br className="hidden sm:block" /> No Middlemen, No Counterfeits. Just the REAL DEAL
             </p>
           </FadeIn>
@@ -275,7 +258,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* T-Hub Marquee */}
       <div className="relative z-20 bg-white/[0.02] border-y border-white/5 backdrop-blur-sm overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#061226] via-transparent to-[#061226] z-10 pointer-events-none" />
         <motion.div
@@ -294,13 +276,12 @@ export default function App() {
         </motion.div>
       </div>
 
-      {/* Market Problem - "The Chaos" */}
       <Section id="core" label="01. The Chaos">
         <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-start">
           <FadeIn>
             <h2 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-tight mb-6 sm:mb-8">A Broken <br /><span className="text-metallic-gold italic">Supply Chain.</span></h2>
             <p className="text-neutral-400 text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed mb-8 sm:mb-12">
-              Building a home shouldn't be a gamble. Today's market forces you to navigate a maze of untrusted dealers and inflated costs.
+              Building a home shouldn&apos;t be a gamble. Today&apos;s market forces you to navigate a maze of untrusted dealers and inflated costs.
             </p>
           </FadeIn>
 
@@ -322,7 +303,6 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Solution Section */}
       <Section id="platform" label="02. The ARK Platform" className="bg-[#040d1a]">
         <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16 md:mb-20">
           <FadeIn>
@@ -364,7 +344,6 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Workflow */}
       <Section id="network" label="03. User Journeys">
         <div className="flex flex-col items-center mb-10 sm:mb-12 md:mb-16">
           <FadeIn>
@@ -406,10 +385,9 @@ export default function App() {
             ))}
           </AnimatePresence>
         </div>
-      </Section >
+      </Section>
 
-      {/* The ARK Guarantee */}
-      < Section id="guarantee" label="04. The ARK Guarantee" >
+      <Section id="guarantee" label="04. The ARK Guarantee">
         <div className="grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7">
             <FadeIn>
@@ -446,11 +424,8 @@ export default function App() {
             </div>
           </div>
         </div>
-      </Section >
+      </Section>
 
-
-
-      {/* Closure / Final CTA */}
       <section className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 text-center bg-ark-gradient">
         <FadeIn>
           <div className="flex justify-center mb-10 sm:mb-12 md:mb-16"><LogoSeal size={80} className="sm:w-24 sm:h-24 md:w-[120px] md:h-[120px]" /></div>
@@ -466,7 +441,6 @@ export default function App() {
         </FadeIn>
       </section>
 
-      {/* Footer */}
       <footer className="bg-[#040d1a] py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 lg:px-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12 md:gap-16 lg:gap-32">
           <div className="md:col-span-6">
@@ -475,7 +449,7 @@ export default function App() {
               <span className="serif text-xl sm:text-2xl tracking-[0.2em] uppercase text-white font-light">ARK <span className="text-[#D4AF37] font-black">ASSURED</span></span>
             </div>
             <p className="text-neutral-300 text-xs sm:text-sm font-light leading-relaxed uppercase tracking-[0.2em] max-w-sm">
-              India's infrastructure-scale marketplace for authenticated building materials and premium interior solutions.
+              India&apos;s infrastructure-scale marketplace for authenticated building materials and premium interior solutions.
             </p>
           </div>
           <div className="md:col-span-3">
@@ -514,9 +488,9 @@ export default function App() {
             Developed by <span className="text-[#D4AF37]">TarsNetworks</span>
           </a>
         </div>
-      </footer >
+      </footer>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} type={modalType} />
-    </div >
+    </div>
   );
 }

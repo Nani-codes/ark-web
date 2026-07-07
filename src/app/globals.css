@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@source "../components/**/*.{js,ts,jsx,tsx}";
+@source "../app/**/*.{js,ts,jsx,tsx}";
+
+:root {
+  --ark-navy: #061226;
+  --ark-gold: #D4AF37;
+  --ark-gold-bright: #F1D382;
+}
+
+* {
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  background-color: var(--ark-navy);
+  color: #ffffff;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.serif {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, .03) 2px, rgba(255, 255, 255, .03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, .03) 2px, rgba(255, 255, 255, .03) 4px);
+  background-size: 100% 100%;
+}
+
+.text-metallic-gold {
+  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ark-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ark-gold);
+  border-radius: 10px;
+}
+
+::selection {
+  background-color: var(--ark-gold);
+  color: var(--ark-navy);
+}
+
+.bg-ark-gradient {
+  background: radial-gradient(circle at top right, #0b1e3b 0%, #061226 100%);
+}
