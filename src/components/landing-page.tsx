@@ -425,29 +425,11 @@ export default function LandingPage() {
             <h5 className="text-[9px] sm:text-[10px] uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-500 font-black mb-6 sm:mb-8">Contact</h5>
             <p className="text-neutral-300 text-xs font-black tracking-widest uppercase leading-loose">
               <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#D4AF37] transition-colors">{CONTACT_EMAIL}</a>
-              <br />
-              Kukatpally, Hyderabad <br />
-              Telangana, India
             </p>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-12 sm:mt-16 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-600">
+        <div className="max-w-7xl mx-auto mt-12 sm:mt-16 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/5 text-center text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-600">
           <span>© 2025 {COMPANY_LEGAL_NAME}. All Rights Reserved.</span>
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
-            <span className="hover:text-white cursor-pointer">Terms of Service</span>
-            <span className="hover:text-white cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-white cursor-pointer">Partner Agreement</span>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto mt-6 pt-6 border-t border-white/5 text-center">
-          <a
-            href="https://tarsnetworks.tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-500 hover:text-[#D4AF37] transition-colors"
-          >
-            Developed by <span className="text-[#D4AF37]">TarsNetworks</span>
-          </a>
         </div>
       </footer>
 
