@@ -22,6 +22,7 @@ import {
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 const CONTACT_EMAIL = 'info@arkassured.com';
+const COMPANY_LEGAL_NAME = 'ARK Assured (formerly ARK)';
 
 const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; direction?: 'up' | 'down' | 'left' | 'right'; scale?: number }> = ({ children, delay = 0, direction = 'up', scale = 1 }) => {
   const directions = {
@@ -403,7 +404,10 @@ export default function LandingPage() {
           <div className="md:col-span-6">
             <div className="flex items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
               <LogoSeal size={40} className="sm:w-12 sm:h-12 md:w-[50px] md:h-[50px]" />
-              <span className="serif text-xl sm:text-2xl tracking-[0.2em] uppercase text-white font-light">ARK <span className="text-[#D4AF37] font-black">ASSURED</span></span>
+              <div className="flex flex-col">
+                <span className="serif text-xl sm:text-2xl tracking-[0.2em] uppercase text-white font-light">ARK <span className="text-[#D4AF37] font-black">ASSURED</span></span>
+                <span className="text-[10px] sm:text-xs text-neutral-500 tracking-wider mt-2 normal-case font-medium">{COMPANY_LEGAL_NAME}</span>
+              </div>
             </div>
             <p className="text-neutral-300 text-xs sm:text-sm font-light leading-relaxed uppercase tracking-[0.2em] max-w-sm">
               India&apos;s infrastructure-scale marketplace for authenticated building materials and premium interior solutions.
@@ -428,7 +432,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-12 sm:mt-16 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-600">
-          <span>© 2025 ARK Assured. All Rights Reserved.</span>
+          <span>© 2025 {COMPANY_LEGAL_NAME}. All Rights Reserved.</span>
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
             <span className="hover:text-white cursor-pointer">Terms of Service</span>
             <span className="hover:text-white cursor-pointer">Privacy Policy</span>

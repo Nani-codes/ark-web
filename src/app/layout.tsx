@@ -14,9 +14,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'ARK Assured | The Seal of Trust',
+  title: 'ARK Assured (formerly ARK) | The Seal of Trust',
   description:
-    "India's trusted one stop platform for genuine, high-quality building materials and interior materials. No Middlemen, No Counterfeits. Just the REAL DEAL.",
+    "ARK Assured (formerly ARK) — India's trusted one stop platform for genuine, high-quality building materials and interior materials. No Middlemen, No Counterfeits. Just the REAL DEAL.",
+  applicationName: 'ARK Assured (formerly ARK)',
 };
 
 export default function RootLayout({
