@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   ArrowRight,
-  X,
   CheckCircle2,
   ArrowUpRight,
   Store,
@@ -20,6 +20,8 @@ import {
   Target,
 } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+
+const CONTACT_EMAIL = 'info@arkassured.com';
 
 const FadeIn: React.FC<{ children: React.ReactNode; delay?: number; direction?: 'up' | 'down' | 'left' | 'right'; scale?: number }> = ({ children, delay = 0, direction = 'up', scale = 1 }) => {
   const directions = {
@@ -59,71 +61,25 @@ const Section: React.FC<{ id?: string; className?: string; children: React.React
   </section>
 );
 
-const LogoSeal = ({ size = 60, className = "" }) => (
+const LogoSeal = ({ size = 60, className = "", priority = false }) => (
   <motion.div
-    whileHover={{ rotate: 10, scale: 1.1 }}
+    whileHover={{ rotate: 6, scale: 1.05 }}
     transition={{ type: "spring", stiffness: 200 }}
-    className={`relative flex items-center justify-center ${className}`}
+    className={`relative flex items-center justify-center shrink-0 ${className}`}
     style={{ width: size, height: size }}
   >
-    <motion.div
-      animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-      transition={{ duration: 5, repeat: Infinity }}
-      className="absolute inset-0 bg-[#D4AF37] blur-3xl rounded-full pointer-events-none"
+    <Image
+      src="/logo.png"
+      alt="ARK Assured logo"
+      width={size}
+      height={size}
+      className="relative z-10 rounded-sm"
+      priority={priority}
     />
-    <svg viewBox="0 0 100 100" className="w-full h-full text-[#D4AF37] relative z-10 drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]">
-      <path d="M50 2 L65 8 L80 20 L92 35 L98 50 L92 65 L80 80 L65 92 L50 98 L35 92 L20 80 L8 65 L2 50 L8 35 L20 20 L35 8 Z" fill="none" stroke="currentColor" strokeWidth="0.5" className="opacity-30" />
-      <path d="M50 8 L62 20 L78 20 L80 38 L92 50 L80 62 L78 80 L62 80 L50 92 L38 80 L22 80 L20 62 L8 50 L20 38 L22 20 L38 20 Z" fill="none" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M50 30 L70 75 M50 30 L30 75 M38 58 L62 58 M50 30 L50 75" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
   </motion.div>
 );
 
-const Modal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'partner' | 'access' }> = ({ isOpen, onClose, type }) => {
-  const [submitted, setSubmitted] = useState(false);
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center p-6">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-black/90 backdrop-blur-xl" />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-[#0b1e3b] w-full max-w-xl p-8 md:p-16 border border-white/10 relative z-[130] shadow-2xl"
-          >
-            <button onClick={onClose} className="absolute top-6 right-6 text-neutral-500 hover:text-white"><X size={24} /></button>
-            {submitted ? (
-              <div className="text-center py-12">
-                <CheckCircle2 size={60} className="mx-auto mb-6 text-[#D4AF37]" />
-                <h3 className="serif text-3xl mb-4 text-white">Application Received</h3>
-                <p className="text-neutral-400 font-light">One of our relationship managers will reach out within 24 hours.</p>
-              </div>
-            ) : (
-              <div>
-                <h3 className="serif text-4xl mb-6 text-white leading-tight">
-                  {type === 'partner' ? 'Professional Registration' : 'Early Access Request'}
-                </h3>
-                <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-                  <input required type="text" className="w-full bg-transparent border-b border-white/20 py-4 focus:border-[#D4AF37] outline-none text-white font-light" placeholder="Full Name" />
-                  <input required type="email" className="w-full bg-transparent border-b border-white/20 py-4 focus:border-[#D4AF37] outline-none text-white font-light" placeholder="Email Address" />
-                  <input required type="text" className="w-full bg-transparent border-b border-white/20 py-4 focus:border-[#D4AF37] outline-none text-white font-light" placeholder={type === 'partner' ? 'Profession (Architect/Designer/etc)' : 'Location'} />
-                  <button type="submit" className="w-full bg-[#D4AF37] text-[#061226] py-5 uppercase tracking-[0.4em] font-black text-xs hover:scale-[1.02] transition-transform">
-                    {type === 'partner' ? 'Submit Registration' : 'Join Waiting List'}
-                  </button>
-                </form>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
-};
-
 export default function LandingPage() {
-  const [modalType, setModalType] = useState<'partner' | 'access'>('access');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [workflowTab, setWorkflowTab] = useState<'b2b' | 'b2c'>('b2b');
   const { scrollYProgress } = useScroll();
   const scaleProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -134,11 +90,6 @@ export default function LandingPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const openModal = (type: 'partner' | 'access') => {
-    setModalType(type);
-    setIsModalOpen(true);
-  };
 
   const navLinks = [
     { name: 'Core', id: 'core' },
@@ -176,7 +127,7 @@ export default function LandingPage() {
 
       <nav className={`fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-12 flex justify-between items-center transition-all duration-500 ${scrolled ? 'bg-[#061226]/95 backdrop-blur-lg py-3 sm:py-4 border-b border-white/10' : 'bg-transparent py-6 sm:py-8'}`}>
         <div className="flex items-center gap-2 sm:gap-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <LogoSeal size={32} className="sm:w-9 sm:h-9 md:w-[38px] md:h-[38px]" />
+          <LogoSeal size={32} priority className="sm:w-9 sm:h-9 md:w-[38px] md:h-[38px]" />
           <span className="serif text-base sm:text-xl md:text-2xl tracking-widest uppercase font-light">ARK <span className="text-metallic-gold font-bold">ASSURED</span></span>
         </div>
 
@@ -186,18 +137,21 @@ export default function LandingPage() {
               {link.name}
             </a>
           ))}
-          <button onClick={() => openModal('partner')} className="border border-[#D4AF37] px-8 py-3 text-[10px] uppercase tracking-[0.4em] text-[#D4AF37] font-black hover:bg-[#D4AF37] hover:text-[#061226] transition-all">
+          <a
+            href={`mailto:${CONTACT_EMAIL}?subject=Partner%20Inquiry`}
+            className="border border-[#D4AF37] px-8 py-3 text-[10px] uppercase tracking-[0.4em] text-[#D4AF37] font-black hover:bg-[#D4AF37] hover:text-[#061226] transition-all"
+          >
             Join as Partner
-          </button>
+          </a>
         </div>
 
         <div className="flex lg:hidden items-center">
-          <button
-            onClick={() => openModal('access')}
+          <a
+            href={`mailto:${CONTACT_EMAIL}?subject=Early%20Access%20Inquiry`}
             className="text-[#D4AF37] font-black text-[10px] uppercase tracking-widest underline decoration-dotted underline-offset-4"
           >
-            GET ACCESS
-          </button>
+            Contact Us
+          </a>
         </div>
       </nav>
 
@@ -246,9 +200,12 @@ export default function LandingPage() {
 
           <FadeIn delay={0.9}>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-              <button onClick={() => openModal('access')} className="bg-[#D4AF37] text-[#061226] px-8 sm:px-12 py-4 sm:py-6 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-black flex items-center justify-center gap-4 sm:gap-6 hover:scale-[1.02] transition-transform shadow-[0_20px_50px_rgba(212,175,55,0.2)]">
-                Get Early Access <ArrowUpRight size={16} className="sm:w-[18px] sm:h-[18px]" />
-              </button>
+              <a
+                href={`mailto:${CONTACT_EMAIL}?subject=Early%20Access%20Inquiry`}
+                className="bg-[#D4AF37] text-[#061226] px-8 sm:px-12 py-4 sm:py-6 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-black flex items-center justify-center gap-4 sm:gap-6 hover:scale-[1.02] transition-transform shadow-[0_20px_50px_rgba(212,175,55,0.2)]"
+              >
+                Contact Us <ArrowUpRight size={16} className="sm:w-[18px] sm:h-[18px]" />
+              </a>
               <div className="flex items-center gap-3 sm:gap-4 justify-center sm:justify-start">
                 <div className="h-[1px] w-8 sm:w-12 bg-white/20" />
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Launching in Hyderabad</span>
@@ -323,7 +280,7 @@ export default function LandingPage() {
                 <li className="flex gap-3 sm:gap-4"><CheckCircle2 className="text-neutral-400 shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Match with verified, top-rated local professionals</li>
                 <li className="flex gap-3 sm:gap-4"><CheckCircle2 className="text-neutral-400 shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Direct brand-to-door logistics with tracking</li>
               </ul>
-              <button onClick={() => openModal('access')} className="mt-8 sm:mt-12 text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-white flex items-center gap-3 sm:gap-4 hover:translate-x-2 transition-transform">Get Early Access <ArrowRight size={12} className="sm:w-[14px] sm:h-[14px]" /></button>
+              <a href={`mailto:${CONTACT_EMAIL}?subject=Early%20Access%20Inquiry`} className="mt-8 sm:mt-12 text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-white flex items-center gap-3 sm:gap-4 hover:translate-x-2 transition-transform">Contact Us <ArrowRight size={12} className="sm:w-[14px] sm:h-[14px]" /></a>
             </div>
           </FadeIn>
           <FadeIn direction="left">
@@ -338,7 +295,7 @@ export default function LandingPage() {
                 <li className="flex gap-3 sm:gap-4"><CheckCircle2 className="text-[#D4AF37] shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Flexible credit limits for project scaling</li>
                 <li className="flex gap-3 sm:gap-4"><CheckCircle2 className="text-[#D4AF37] shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Integrated project management dashboard</li>
               </ul>
-              <button onClick={() => openModal('partner')} className="mt-8 sm:mt-12 text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-[#D4AF37] flex items-center gap-3 sm:gap-4 hover:translate-x-2 transition-transform">Register as Partner <ArrowRight size={12} className="sm:w-[14px] sm:h-[14px]" /></button>
+              <a href={`mailto:${CONTACT_EMAIL}?subject=Partner%20Inquiry`} className="mt-8 sm:mt-12 text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-[#D4AF37] flex items-center gap-3 sm:gap-4 hover:translate-x-2 transition-transform">Contact Us <ArrowRight size={12} className="sm:w-[14px] sm:h-[14px]" /></a>
             </div>
           </FadeIn>
         </div>
@@ -431,12 +388,12 @@ export default function LandingPage() {
           <div className="flex justify-center mb-10 sm:mb-12 md:mb-16"><LogoSeal size={80} className="sm:w-24 sm:h-24 md:w-[120px] md:h-[120px]" /></div>
           <h2 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl mb-10 sm:mb-12 md:mb-16 leading-tight">Ready for a <br /><span className="text-metallic-gold italic">Better Build?</span></h2>
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 md:gap-8">
-            <button onClick={() => openModal('partner')} className="border-2 border-[#D4AF37] px-10 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 text-[10px] sm:text-xs uppercase tracking-[0.5em] sm:tracking-[0.6em] font-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#061226] transition-all">
-              Register as Professional
-            </button>
-            <button onClick={() => openModal('access')} className="bg-[#D4AF37] text-[#061226] px-10 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-black hover:bg-white transition-all">
-              Get Early Access
-            </button>
+            <a href={`mailto:${CONTACT_EMAIL}?subject=Partner%20Inquiry`} className="border-2 border-[#D4AF37] px-10 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 text-[10px] sm:text-xs uppercase tracking-[0.5em] sm:tracking-[0.6em] font-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#061226] transition-all">
+              Contact Us
+            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="bg-[#D4AF37] text-[#061226] px-10 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-black hover:bg-white transition-all">
+              {CONTACT_EMAIL}
+            </a>
           </div>
         </FadeIn>
       </section>
@@ -455,16 +412,16 @@ export default function LandingPage() {
           <div className="md:col-span-3">
             <h5 className="text-[9px] sm:text-[10px] uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-500 font-black mb-6 sm:mb-8">Platform</h5>
             <ul className="space-y-3 sm:space-y-4 text-xs font-black tracking-widest text-neutral-300 uppercase">
-              <li><button onClick={() => openModal('partner')} className="hover:text-[#D4AF37] transition-colors text-left">Professional Registration</button></li>
-              <li><button onClick={() => openModal('access')} className="hover:text-[#D4AF37] transition-colors text-left">Homeowner Waitlist</button></li>
               <li><a href="#network" onClick={(e) => handleGlide(e, 'network')} className="hover:text-[#D4AF37] transition-colors">How it Works</a></li>
               <li><a href="#guarantee" onClick={(e) => handleGlide(e, 'guarantee')} className="hover:text-[#D4AF37] transition-colors">Quality Assurance</a></li>
+              <li><a href="#platform" onClick={(e) => handleGlide(e, 'platform')} className="hover:text-[#D4AF37] transition-colors">The ARK Platform</a></li>
             </ul>
           </div>
           <div className="md:col-span-3">
             <h5 className="text-[9px] sm:text-[10px] uppercase tracking-[0.5em] sm:tracking-[0.6em] text-neutral-500 font-black mb-6 sm:mb-8">Contact</h5>
             <p className="text-neutral-300 text-xs font-black tracking-widest uppercase leading-loose">
-              support@arkassured.com <br />
+              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#D4AF37] transition-colors">{CONTACT_EMAIL}</a>
+              <br />
               Kukatpally, Hyderabad <br />
               Telangana, India
             </p>
@@ -490,7 +447,6 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} type={modalType} />
     </div>
   );
 }
